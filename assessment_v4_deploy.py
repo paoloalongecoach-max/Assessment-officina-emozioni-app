@@ -31,12 +31,26 @@ st.markdown("""
     }
     
     /* Headers */
-    h1, h2, h3 {
+    h1, h2, h3, h4, h5, h6 {
         font-family: 'Helvetica Neue', sans-serif;
-        color: #f0f2f6;
+        color: #FFFFFF !important;
     }
     h1 { font-weight: 800; letter-spacing: -1px; }
     
+    /* General Text */
+    p, div, label, span {
+        color: #FFFFFF !important;
+    }
+
+    /* Streamlit specific overrides for labels */
+    .stMarkdown, .stSlider > label, .stSelectbox > label, .stMultiSelect > label, .stRadio > label {
+        color: #FFFFFF !important;
+    }
+    
+    .stCaption {
+        color: #E0E0E0 !important; /* Slightly distinct but bright */
+    }
+
     /* Custom Cards */
     .metric-card {
         background-color: #1E1E1E;
@@ -49,11 +63,11 @@ st.markdown("""
     .metric-value {
         font-size: 2.5rem;
         font-weight: bold;
-        color: #FF4B4B;
+        color: #FF4B4B !important; /* Keep score red */
     }
     .metric-label {
         font-size: 1rem;
-        color: #888;
+        color: #FFFFFF !important;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
@@ -67,7 +81,7 @@ st.markdown("""
     .stButton > button {
         width: 100%;
         background-color: #FF4B4B;
-        color: white;
+        color: white !important;
         border: none;
         padding: 15px 32px;
         text-align: center;
@@ -217,7 +231,7 @@ with col_visual:
             <div class="metric-label">Indice di Usura</div>
             <div class="metric-value" style="color: {status_color};">{total_score:.1f}/10</div>
             <h3 style="color: {status_color}; margin: 10px 0;">{status_text}</h3>
-            <p style="color: #ccc; font-style: italic;">"{advice}"</p>
+            <p style="color: #FFFFFF; font-style: italic;">"{advice}"</p>
         </div>
     """, unsafe_allow_html=True)
     
@@ -248,6 +262,6 @@ with col_cta_center:
     if total_score > 4:
         st.error("⚠️ ATTENZIONE: La spia avaria motore è accesa.")
         # Direct link button as requested
-        st.link_button("📅 PRENOTA UNA CONSULENZA CON L'INGEGNER PAOLO ALONGE", "https://paoloalonge.it/prenota/")
+        st.link_button("📅 PRENOTA UNA CONSULENZA CON L'ING. PAOLO ALONGE", "https://paoloalonge.it/prenota/")
     else:
         st.success("✅ Sistemi nominali. Mantieni questo assetto!")
