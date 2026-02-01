@@ -42,13 +42,19 @@ st.markdown("""
         color: #FFFFFF !important;
     }
 
-    /* Streamlit specific overrides for labels */
-    .stMarkdown, .stSlider > label, .stSelectbox > label, .stMultiSelect > label, .stRadio > label {
+    /* Streamlit specific overrides for labels and captions */
+    .stMarkdown, .stSlider > label, .stSelectbox > label, .stMultiSelect > label, .stRadio > label, .stCheckbox > label {
         color: #FFFFFF !important;
     }
     
     .stCaption {
-        color: #E0E0E0 !important; /* Slightly distinct but bright */
+        color: #FFFFFF !important;
+    }
+
+    /* Make checkboxes more visible with a blue tint for the labels */
+    .stCheckbox label p {
+        color: #00BFFF !important; /* Deep Sky Blue for symptoms labels */
+        font-weight: 600;
     }
 
     /* Custom Cards */
@@ -187,19 +193,21 @@ with col_form:
 
     # SEZIONE 3: SOSPENSIONI E INGRANAGGI (Somatizzazione e Tenuta)
     st.markdown("##### 3. INTEGRITÀ TELAIO (Sintomi Fisici)")
-    sintomi = st.multiselect(
-        "Quali 'cigolii' senti nella carrozzeria?",
-        [
-            "Insonnia / Sonno disturbato",
-            "Tensione muscolare (collo/schiena)",
-            "Mal di testa frequente",
-            "Gastrite / Reflusso",
-            "Stanchezza cronica al risveglio",
-            "Fame nervosa"
-        ]
-    )
-    # Score basato sul numero di sintomi pesati
-    telaio_score = min(len(sintomi) * 2, 10)
+    st.info("Quali 'cigolii' senti nella carrozzeria? (Seleziona tutti quelli applicabili)")
+    
+    c1, c2 = st.columns(2)
+    with c1:
+        s1 = st.checkbox("🌙 Insonnia / Sonno disturbato")
+        s2 = st.checkbox("🧘 Tensione muscolare (collo/schiena)")
+        s3 = st.checkbox("🧠 Mal di testa frequente")
+    with c2:
+        s4 = st.checkbox("🧪 Gastrite / Reflusso")
+        s5 = st.checkbox("🔋 Stanchezza cronica al risveglio")
+        s6 = st.checkbox("🍕 Fame nervosa")
+        
+    sintomi_selezionati = [s1, s2, s3, s4, s5, s6]
+    # Score basato sul numero di sintomi selezionati
+    telaio_score = min(sum(sintomi_selezionati) * 2, 10)
     
     # Calculate Overall Health
     total_score = (motore_score + radiatore_score + telaio_score) / 3
